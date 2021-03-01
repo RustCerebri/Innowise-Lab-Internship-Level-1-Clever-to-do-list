@@ -8,8 +8,50 @@
     justify-content: center;
     margin-top: 40px;
 
-    &-input {
-      margin-bottom: 10px;
+    &-control {
+      display: flow-root;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+
+
+      &-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: brown;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      &-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+
+        margin-bottom: 10px;
+      }
+
+      &-validation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        &-error {
+
+          color: crimson;
+          border: 1px solid gray;
+          padding: 5px;
+          margin-bottom: 10px;
+        }
+
+    }
+
     }
 
   }
@@ -23,4 +65,14 @@ app-button {
 
 }
 
+h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+}
 
+
+.invalid {
+  color: blueviolet;
+}

@@ -2,14 +2,61 @@
 
 <div class="wrapper">
 
-<app-page-title></app-page-title>
+  <!-- <app-page-title></app-page-title> -->
 
-<form class="wrapper__forms">
-  <input class="wrapper__forms-input" placeholder="Enter your Login" type="text" name="" id="">
-  <input class="wrapper__forms-input" placeholder="Enter password" type="password" name="" id="">
 
-</form>
 
-<app-button routerLink="/task-list"></app-button>
+  <form class="wrapper__forms" [formGroup]="form">
+
+    <h2>Authentictation</h2>
+
+    <div class="wrapper__forms-control"
+    [ngClass]="{invalid: form.get('email').touched &&form.get('email').invalid}">
+
+      <label class="wrapper__forms-control-label" for="email">Email label</label>
+
+      <input class="wrapper__forms-control-input" placeholder="Enter your email" type="email" name="" formControlName="email">
+
+      <div *ngIf="form.get('email').touched && form.get('email').invalid" class="wrapper__forms-control-validation">
+
+        <small *ngIf="form.get('email').errors.required" class="wrapper__forms-control-validation-error">
+          Error. Enter email
+        </small>
+
+        <small *ngIf="form.get('email').errors.email" class="wrapper__forms-control-validation-error">
+          Error. Uncorrect email
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="wrapper__forms-control"
+      [ngClass]="{invalid: form.get('password').touched &&form.get('password').invalid}">
+
+      <label class="wrapper__forms-control-label" for="login">Password</label>
+
+      <input class="wrapper__forms-control-input" placeholder="Enter password" type="password" name="" formControlName="password">
+
+      <div *ngIf="form.get('password').touched && form.get('password').invalid" class="wrapper__forms-control-validation">
+
+        <small *ngIf="form.get('password').errors.required" class="wrapper__forms-control-validation-error">Error password</small>
+        <small *ngIf="form.get('password').errors.minlength" class="wrapper__forms-control-validation-error">
+          Error. Passwor must {{form.get('password').errors.minlength.requiredLength}} char.
+          Pass now {{form.get('password').errors.minlength.actualLength}}  char
+        </small>
+      </div>
+    </div>
+
+    <button (click)="submit()"> Sign In </button>
+
+  </form>
+
+  <!-- <app-button
+type="submit"
+
+routerLink="/task-list">
+</app-button> -->
 
 </div>

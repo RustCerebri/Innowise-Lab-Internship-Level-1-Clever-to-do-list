@@ -1,3 +1,5 @@
+import { SharedModule } from './shared/components/shared.module';
+import { AuthService } from './shared/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { MonthElComponent } from './modules/task-list/component/month-el/month-el.component';
 import { CurrentTaskComponent } from './modules/task-list/component/current-task/current-task.component';
@@ -17,6 +19,7 @@ import { ButtonComponent } from './shared/button/button.component';
 import { ScrollBarComponent } from './modules/task-list/component/scroll-bar/scroll-bar.component';
 import { DateElComponent } from './modules/task-list/component/date-el/date-el.component';
 import { AngularFireModule } from '@angular/fire';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 var config = {
   apiKey: "AIzaSyC_XKJIZMz2TQq_wL2VB-WNQFofSmhT-jY",
@@ -43,16 +46,21 @@ var config = {
     CurrentTaskComponent,
     ScrollBarComponent,
     DateElComponent,
-    MonthElComponent
+    MonthElComponent,
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
-    AngularFireModule
+    AngularFireModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
