@@ -1,0 +1,37 @@
+.wrapper {
+  height: 50px;
+  width: 100%;
+  background-color: slateblue;
+  display: flex;
+  align-items: center;
+
+
+      &__circle{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgb(219, 203, 59);
+        box-shadow: 2px 2px 2px rgb(201, 204, 35);
+        margin-left: 10px;
+
+        &-complete {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          fill: rgb(95, 95, 158);
+
+
+
+        }
+  }
+
+      &__title {
+        margin-left: 20px;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 800;
+
+      }
+
+}
+

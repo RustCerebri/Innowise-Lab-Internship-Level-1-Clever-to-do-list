@@ -1,0 +1,27 @@
+.wrapper {
+
+
+  &__forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+
+    &-input {
+      margin-bottom: 10px;
+    }
+
+  }
+
+
+
+
+}
+
+app-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
