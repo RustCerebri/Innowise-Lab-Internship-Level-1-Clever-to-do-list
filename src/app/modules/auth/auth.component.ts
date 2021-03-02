@@ -1,6 +1,5 @@
 import { AuthService } from './../../shared/services/auth.service';
 import { User } from './../../shared/components/interfaces';
-import { from } from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -40,7 +39,8 @@ export class AuthComponent implements OnInit {
       }
       const user: User = {
         email: this.form.value.email,
-        password: this.form.value.password
+        password: this.form.value.password,
+        returnSecureToken: true
       }
 
       this.auth.login(user).subscribe(()=> {

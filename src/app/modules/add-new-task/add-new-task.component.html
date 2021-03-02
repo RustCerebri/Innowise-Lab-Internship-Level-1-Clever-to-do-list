@@ -1,15 +1,88 @@
 <app-header></app-header>
 
 <div class="wrapper">
-  <app-page-title></app-page-title>
+    <h1 class="wrapper__title"> Create new Task </h1>
 
-  <form class="wrapper__forms" action="">
-    <input class="wrapper__forms-input" placeholder="Enter task" type="text" name="" id="">
-    <input class="wrapper__forms-input" placeholder="Enter task's description" type="text" name="" id="">
-    <input class="wrapper__forms-input" type="time" name="" id="">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="wrapper__forms" action="">
+
+    <div class="wrapper__control"
+    [ngClass]="{invalid: form.get('title').touched &&form.get('title').invalid}">
+
+
+    <label for="title"></label>
+
+    <input class="wrapper__forms-input" placeholder="Name" type="text" name="" formControlName="title">
+
+    <div *ngIf="form.get('title').touched && form.get('title').invalid" class="wrapper__forms-control-validation">
+
+      <small *ngIf="form.get('title').errors.required" class="wrapper__forms-control-validation-error">
+        Error. Enter name
+      </small>
+
+    </div>
+
+    </div>
+
+    <div class="wrapper__control"
+    [ngClass]="{invalid: form.get('description').touched &&form.get('description').invalid}">
+
+
+    <label for="description"></label>
+
+    <input class="wrapper__forms-input" placeholder="Description" type="text" name="" formControlName="description">
+
+    <div *ngIf="form.get('description').touched && form.get('description').invalid" class="wrapper__forms-control-validation">
+
+      <small *ngIf="form.get('description').errors.required" class="wrapper__forms-control-validation-error">
+        Error. Enter description
+      </small>
+
+    </div>
+
+    </div>
+
+    <div class="wrapper__control"
+    [ngClass]="{invalid: form.get('date').touched &&form.get('date').invalid}">
+
+
+    <label for="date"> Time </label>
+
+    <input class="wrapper__forms-input" placeholder="date" type="date" name="" formControlName="date">
+
+    <div *ngIf="form.get('date').touched && form.get('date').invalid" class="wrapper__forms-control-validation">
+
+      <small *ngIf="form.get('date').errors.required" class="wrapper__forms-control-validation-error">
+        Error. Enter date
+      </small>
+
+    </div>
+
+    </div>
+
+
+    <div class="wrapper__control"
+    [ngClass]="{invalid: form.get('time').touched &&form.get('time').invalid}">
+
+
+    <label for="time"> Time </label>
+
+    <input class="wrapper__forms-input" placeholder="Time" type="time" name="" formControlName="time">
+
+    <div *ngIf="form.get('time').touched && form.get('time').invalid" class="wrapper__forms-control-validation">
+
+      <small *ngIf="form.get('time').errors.required" class="wrapper__forms-control-validation-error">
+        Error. Enter time
+      </small>
+
+    </div>
+
+    </div>
+
+
+    <button type="submit"> Add new Task </button>
   </form>
 
 
-  <app-button routerLink="/task-list"></app-button>
+  <!-- <app-button routerLink="/task-list"></app-button> -->
 
 </div>

@@ -36,7 +36,7 @@ import { RouterModule } from "@angular/router";
         component: AddNewTaskComponent
       },
       {
-        path: 'change-task',
+        path: 'change-task/:id',
         component: ChangeTaskComponent
       }
     ]),

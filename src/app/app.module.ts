@@ -1,3 +1,5 @@
+import { SearchPipe } from './shared/services/search.pipe';
+import { AuthInterceptor } from './shared/auth.interceptor';
 import { SharedModule } from './shared/components/shared.module';
 import { AuthService } from './shared/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +12,7 @@ import { PageTitleComponent } from './shared/page-title/page-title.component';
 import { AuthComponent } from './modules/auth/auth.component';
 import { RegComponent } from './modules/reg/reg.component';
 import { EnterComponent } from './modules/enter/enter.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { WeekComponent } from './components/week/week.component';
@@ -20,6 +22,7 @@ import { ScrollBarComponent } from './modules/task-list/component/scroll-bar/scr
 import { DateElComponent } from './modules/task-list/component/date-el/date-el.component';
 import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 var config = {
   apiKey: "AIzaSyC_XKJIZMz2TQq_wL2VB-WNQFofSmhT-jY",
@@ -28,6 +31,12 @@ var config = {
   projectId: "apptask-8b3d3",
   storageBucket: "apptask-8b3d3.appspot.com",
   messagingSenderId: "774538452111",
+};
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  multi: true,
+  useClass: AuthInterceptor
 }
 
 @NgModule({
@@ -47,7 +56,7 @@ var config = {
     ScrollBarComponent,
     DateElComponent,
     MonthElComponent,
-
+    SearchPipe
 
   ],
   imports: [
@@ -57,9 +66,10 @@ var config = {
     AngularFireModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+
   ],
-  providers: [AuthService],
+  providers: [AuthService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

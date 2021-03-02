@@ -1,4 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Task } from './../../shared/components/interfaces';
+import { TaskService } from './../../shared/components/task-service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Subscription } from 'rxjs';
+
 
 @Component({
 selector: 'app-task-list',
@@ -6,9 +10,27 @@ templateUrl: './task-list.component.html',
 styleUrls: ['./task-list.component.scss']
 })
 
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
 
-  constructor() {}
+  tasks: Task[] = [];
+  pTask: Subscription;
+  searchStr = '';
+
+  constructor(private TaskService: TaskService) {}
     ngOnInit () : void {
+      this. pTask = this.TaskService.getAll().subscribe(tasks => {
+        this.tasks = tasks
+      })
+  }
+
+
+  remove (id: string) {
+
+  }
+
+  ngOnDestroy() : void {
+    if (this.pTask) {
+      this.pTask.unsubscribe()
+    }
   }
 }

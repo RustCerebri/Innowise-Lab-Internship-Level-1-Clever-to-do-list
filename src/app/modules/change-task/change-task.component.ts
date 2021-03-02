@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-change-task',
@@ -8,8 +9,11 @@ import {Component, OnInit} from '@angular/core';
 
 
 export class ChangeTaskComponent implements OnInit {
-  constructor () {}
+  constructor (private activatedRoute: ActivatedRoute) {}
   ngOnInit () : void {
+    const taskId = this.activatedRoute.snapshot.params.id;
+    console.log(taskId);
+
 
   }
 }
