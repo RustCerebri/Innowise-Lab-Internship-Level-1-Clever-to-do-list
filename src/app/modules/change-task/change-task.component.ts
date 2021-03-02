@@ -1,5 +1,11 @@
+import { Task, Params } from './../../shared/components/interfaces';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TaskService } from './../../shared/components/task-service';
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {switchMap} from 'rxjs/operators';
+
+
 
 @Component({
   selector: 'app-change-task',
@@ -9,11 +15,23 @@ import { ActivatedRoute } from '@angular/router';
 
 
 export class ChangeTaskComponent implements OnInit {
-  constructor (private activatedRoute: ActivatedRoute) {}
+
+    form: FormGroup;
+
+  constructor (
+    private route: ActivatedRoute,
+    private TaskService: TaskService) {}
   ngOnInit () : void {
-    const taskId = this.activatedRoute.snapshot.params.id;
-    console.log(taskId);
-
-
+    this.route.params
+      .pipe(
+        switchMap((params: Params) => {
+          return this.TaskService.getById(params['id'])
+        })
+    ).subscribe((task: Task)=> {
+      this.form = new FormGroup ( {
+        title: new FormControl(task.title, Validators.required),
+        description: new FormControl(task.description, Validators.required)
+      })
+    })
   }
 }

@@ -22,3 +22,7 @@ export interface Task {
 export interface FbCreateResponse {
   name: string
 }
+
+export interface Params {
+  id: string;
+}

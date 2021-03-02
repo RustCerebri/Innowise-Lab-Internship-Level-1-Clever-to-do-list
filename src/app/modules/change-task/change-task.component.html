@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="wrapper">
+<!-- <div class="wrapper">
   <app-page-title></app-page-title>
 
   <form class="wrapper__forms" action="">
@@ -11,4 +11,56 @@
 
   <app-button class="wrapper__button"></app-button>
 
+</div> -->
+
+<div
+*ngIf="form; else loading"
+>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <div class="wrapper__control"
+  [ngClass]="{invalid: form.get('title').touched &&form.get('title').invalid}">
+
+
+  <label for="title"></label>
+
+  <input class="wrapper__forms-input" placeholder="Name" type="text" name="" formControlName="title">
+
+  <div *ngIf="form.get('title').touched && form.get('title').invalid" class="wrapper__forms-control-validation">
+
+    <small *ngIf="form.get('title').errors.required" class="wrapper__forms-control-validation-error">
+      Error. Enter name
+    </small>
+
+  </div>
+
+  </div>
+
+  <div class="wrapper__control"
+  [ngClass]="{invalid: form.get('description').touched &&form.get('description').invalid}">
+
+
+  <label for="description"></label>
+
+  <input class="wrapper__forms-input" placeholder="Description" type="text" name="" formControlName="description">
+
+  <div *ngIf="form.get('description').touched && form.get('description').invalid" class="wrapper__forms-control-validation">
+
+    <small *ngIf="form.get('description').errors.required" class="wrapper__forms-control-validation-error">
+      Error. Enter description
+    </small>
+
+  </div>
+
+  </div>
+
+
+  <button type="submit">Update</button>
+</form>
+
 </div>
+
+<ng-template #loading>
+<p>Loading... </p>
+</ng-template>
