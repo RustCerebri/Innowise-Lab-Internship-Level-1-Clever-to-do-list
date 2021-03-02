@@ -14,6 +14,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   tasks: Task[] = [];
   pTask: Subscription;
+  dTask: Subscription;
   searchStr = '';
 
   constructor(private TaskService: TaskService) {}
@@ -25,12 +26,17 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
 
   remove (id: string) {
-
+    this.dTask = this.TaskService.remove(id).subscribe(()=>{
+      this.tasks = this.tasks.filter(post => post.id !== id)
+    })
   }
 
   ngOnDestroy() : void {
     if (this.pTask) {
       this.pTask.unsubscribe()
+    }
+    if (this.dTask) {
+      this.dTask.unsubscribe()
     }
   }
 }

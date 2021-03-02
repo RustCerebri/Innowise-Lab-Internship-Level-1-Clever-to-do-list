@@ -32,8 +32,8 @@ export class TaskService {
     }))
   }
 
-  remove(id: string) {
-
+  remove(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.fbDbUrl}/tasks/${id}.json`)
   }
 
 }
