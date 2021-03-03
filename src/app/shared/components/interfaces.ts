@@ -26,3 +26,10 @@ export interface FbCreateResponse {
 export interface Params {
   id: string;
 }
+
+export interface CalDate {
+  currentDate: Date,
+  month: Date,
+  day: string,
+  week: string
+}

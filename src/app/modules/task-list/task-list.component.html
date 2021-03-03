@@ -4,55 +4,43 @@
   <input type="text" placeholder="Find Task" [(ngModel)]="searchStr">
 </div>
 
+<app-calendar></app-calendar>
 
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Title Task</th>
-      <th>Description</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+<div *ngFor="let task of tasks | searchTasks: searchStr; let idx = index" class="wrapper">
 
-  <tbody>
-    <tr *ngFor="let task of tasks | searchTasks: searchStr; let idx = index">
-      <td>{{idx + 1 }}</td>
-      <td>{{task.title}}</td>
-      <td>{{task.description}}</td>
-      <td>{{task.date}}</td>
-      <td>{{task.time}}</td>
-      <td>
-        <button [routerLink]="['/change-task', task.id]"  >
-          Edit
-        </button>
+  <div class="wrapper__complete">
+    <input type="checkbox">
+  </div>
 
-        <button (click)="remove(task.id)">
-           Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
+  <div class="wrapper__number">
+    {{idx +1}}
+  </div>
 
-</table>
+  <div class="wrapper__task">
 
+    <div class="wrapper__task-date">
+      {{task.date}}
+    </div>
 
+    <div class="wrapper__task-title">
+      {{task.title}}
+    </div>
 
+    <div class="wrapper__task-description">
+      {{task.description}}
+    </div>
 
-<!-- <div class="wrapper">
+    <div class="wrapper__task-time">
+      {{task.time}}
+    </div>
 
-<app-scroll-bar></app-scroll-bar>
+  </div>
 
-<app-scroll-bar></app-scroll-bar>
+  <div class="wrapper__control">
+    <button [routerLink]="['/change-task', task.id]">edit</button>
+    <button (click)="remove(task.id)">delete</button>
 
-<app-current-task ></app-current-task>
+  </div>
 
-<app-current-task></app-current-task>
-
-<app-current-task ></app-current-task>
-
-<app-button routerLink="/add-new-task"></app-button>
-
-</div> -->
+</div>
+<button routerLink="/add-new-task"> Add new Task </button>

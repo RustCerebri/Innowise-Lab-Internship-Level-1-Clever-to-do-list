@@ -1,10 +1,10 @@
+import { ChunkPipe } from './modules/task-list/component/calendar/format.pipe';
+import { CalendarComponent } from './modules/task-list/component/calendar/calendar.component';
 import { SearchPipe } from './shared/services/search.pipe';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { SharedModule } from './shared/components/shared.module';
 import { AuthService } from './shared/services/auth.service';
 import { AppRoutingModule } from './app-routing.module';
-import { MonthElComponent } from './modules/task-list/component/month-el/month-el.component';
-import { CurrentTaskComponent } from './modules/task-list/component/current-task/current-task.component';
 import { TaskListComponent } from './modules/task-list/task-list.component';
 import { ChangeTaskComponent } from './modules/change-task/change-task.component';
 import { AddNewTaskComponent } from './modules/add-new-task/add-new-task.component';
@@ -18,8 +18,6 @@ import { AppComponent } from './app.component';
 import { WeekComponent } from './components/week/week.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { ButtonComponent } from './shared/button/button.component';
-import { ScrollBarComponent } from './modules/task-list/component/scroll-bar/scroll-bar.component';
-import { DateElComponent } from './modules/task-list/component/date-el/date-el.component';
 import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -52,12 +50,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AddNewTaskComponent,
     ChangeTaskComponent,
     TaskListComponent,
-    CurrentTaskComponent,
-    ScrollBarComponent,
-    DateElComponent,
-    MonthElComponent,
-    SearchPipe
-
+    SearchPipe,
+    CalendarComponent,
+    ChunkPipe
   ],
   imports: [
     BrowserModule,
@@ -66,8 +61,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AngularFireModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
-
+    SharedModule
   ],
   providers: [AuthService, INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
