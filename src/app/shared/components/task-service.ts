@@ -6,6 +6,7 @@ import {FbCreateResponse, Task } from './interfaces';
 import {map} from 'rxjs/operators';
 
 
+
 @Injectable ({providedIn: 'root'})
 
 export class TaskService {
@@ -43,7 +44,11 @@ export class TaskService {
     }
 
   remove(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.fbDbUrl}/tasks/${id}.json`)
+    return this.http.delete<void>(`${environment.fbDbUrl}/tasks/${id}.json`);
+  }
+
+  update(task: Task): Observable<Task>  {
+    return this.http.patch<Task>(`${environment.fbDbUrl}/tasks/${task.id}.json`, task);
   }
 
 }

@@ -55,6 +55,42 @@
 
   </div>
 
+  <div class="wrapper__control"
+  [ngClass]="{invalid: form.get('date').touched &&form.get('date').invalid}">
+
+
+  <label for="date"> Date </label>
+
+  <input class="wrapper__forms-input" placeholder="date" type="date" name="" formControlName="date">
+
+  <div *ngIf="form.get('date').touched && form.get('date').invalid" class="wrapper__forms-control-validation">
+
+    <small *ngIf="form.get('date').errors.required" class="wrapper__forms-control-validation-error">
+      Error. Enter date
+    </small>
+
+  </div>
+
+  </div>
+
+  <div class="wrapper__control"
+  [ngClass]="{invalid: form.get('time').touched &&form.get('time').invalid}">
+
+
+  <label for="time"> Time </label>
+
+  <input class="wrapper__forms-input" placeholder="Time" type="time" name="" formControlName="time">
+
+  <div *ngIf="form.get('time').touched && form.get('time').invalid" class="wrapper__forms-control-validation">
+
+    <small *ngIf="form.get('time').errors.required" class="wrapper__forms-control-validation-error">
+      Error. Enter time
+    </small>
+
+  </div>
+
+  </div>
+
 
   <button type="submit">Update</button>
 </form>
