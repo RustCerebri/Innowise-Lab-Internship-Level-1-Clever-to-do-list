@@ -1,0 +1,13 @@
+<li [ngClass]="{'past-date': date.isPastDate, 'today': date.isToday}" (click)="chooseDate(date)">
+
+    <time class="icon block">
+
+        <span class="month">  {{monthNames[date.date.getMonth()]}}</span>
+
+        <span class="day">{{date.date.getDate()}}</span>
+
+        <span class="week">{{dayNames[date.date.getUTCDay()]}}</span>
+
+      </time>
+
+    </li>

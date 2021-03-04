@@ -1,29 +1,19 @@
 <div class="control">
 
+  <div class="control__item">
+
   <div class="prev">
-    <input type="button" (click)="decreaseMonth()"value="-" />
+    <input type="button" class="wrapper__button" (click)="decreaseMonth()"value="-" />
 
 
   </div>
 
 <div class="calendar" *ngIf="calendar">
 
-  <ul *ngFor="let row of calendar | chunk: 7; let i = index">
+  <ul (click)="chooseDate($event)" *ngFor="let row of calendar | chunk: 5; let i = index" >
 
-    <li  [ngClass]="{'past-date': c.isPastDate, 'today': c.isToday}"
-    *ngFor="let c of row; let j = index">
 
-    <time class="icon block">
-
-        <span class="month">  {{monthNames[c.date.getMonth()]}}</span>
-
-        <span class="day">{{c.date.getDate()}}</span>
-
-        <span class="week">{{dayNames[c.date.getUTCDay()]}}</span>
-
-      </time>
-
-    </li>
+    <app-day *ngFor="let date of row" [date]="date" (onAddEvent)="chooseDate($event)"></app-day>
 
   </ul>
 
@@ -31,7 +21,17 @@
 
 <div class="next">
 
-  <input type="button"  (click)="increaseMonth()"  value="+" />
+  <input class="wrapper__button" type="button"  (click)="increaseMonth()"  value="+" />
 </div>
 
 </div>
+
+<div class="control__currentDate">
+<input class="wrapper__button"  type="button" (click)="setCurrentMonth()"value="Current date">
+
+</div>
+
+
+
+</div>
+

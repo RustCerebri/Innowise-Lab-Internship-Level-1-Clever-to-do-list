@@ -28,7 +28,7 @@ export class RegComponent implements OnInit {
     }
 
     submit() {
-      console.log(this.form.value)
+
       if(this.form.invalid) {
         return
       }

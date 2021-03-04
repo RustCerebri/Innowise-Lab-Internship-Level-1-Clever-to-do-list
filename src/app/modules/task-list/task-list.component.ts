@@ -1,5 +1,5 @@
 
-import { Task, CalDate} from './../../shared/components/interfaces';
+import { Task} from './../../shared/components/interfaces';
 import { TaskService } from './../../shared/components/task-service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -18,31 +18,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   pTask: Subscription;
   dTask: Subscription;
-  searchStr = '';
+  searchStr: Date;
 
 
-  calDates: CalDate[] = [{
-    currentDate: new Date (),
-    month: new Date (0, 0, 0, 0),
-    day: 'wed',
-    week: 'sex'
-  }];
-
-  dayInMontArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  monthArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-  dayArr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-
-
-
-
-  constructor(private TaskService: TaskService) {}
+   constructor(private TaskService: TaskService) {}
 
   ngOnInit () : void {
       this. pTask = this.TaskService.getAll().subscribe(tasks => {
-        this.tasks = tasks
+        this.tasks = tasks;
       })
   }
 
@@ -60,6 +43,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
     if (this.dTask) {
       this.dTask.unsubscribe()
     }
+  }
+
+  getCurrentDate(date) {
+    this.tasks = this.tasks.filter(item => date==item.date);
+    console.log(date);
   }
 
 }

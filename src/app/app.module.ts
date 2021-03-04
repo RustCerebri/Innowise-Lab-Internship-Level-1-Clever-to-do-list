@@ -21,6 +21,7 @@ import { ButtonComponent } from './shared/button/button.component';
 import { AngularFireModule } from '@angular/fire';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DayComponent } from './modules/task-list/component/day/day.component';
 
 var config = {
   apiKey: "AIzaSyC_XKJIZMz2TQq_wL2VB-WNQFofSmhT-jY",
@@ -52,7 +53,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     TaskListComponent,
     SearchPipe,
     CalendarComponent,
-    ChunkPipe
+    ChunkPipe,
+    DayComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,16 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Output, Pipe, PipeTransform } from '@angular/core';
+import * as EventEmitter from 'events';
+
+
 
 export class CalendarDay {
+
+
   public date: Date;
   public title: string;
   public isPastDate: boolean;
   public isToday: boolean;
+  public currentDate: Date;
 
   public getDateString() {
     return this.date.toISOString().split("T")[0]
@@ -42,10 +48,14 @@ export class ChunkPipe implements PipeTransform {
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
 })
 
 export class CalendarComponent implements OnInit {
+
+
+  @Output() public onAddEvent: EventEmitter = new EventEmitter();
+
   public calendar: CalendarDay[] = [];
   public monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -56,7 +66,7 @@ export class CalendarComponent implements OnInit {
   public displayMonth: string;
   public displayDay: string;
   private monthIndex: number = 0;
-  private dayNumber: number = 1;
+
 
   ngOnInit(): void {
     this.generateCalendarDays(this.monthIndex);
@@ -69,48 +79,18 @@ export class CalendarComponent implements OnInit {
 
 
 
-    let day: Date = new Date(new Date().setMonth(new Date().getMonth() + monthIndex));
-
-    console.log("day - " + day);
-
-    console.log("monthIndex - " + monthIndex);
-
+    let day: Date = new Date(new Date().setDate(new Date().getDay() + monthIndex));
 
     this.displayMonth = this.monthNames[day.getMonth()];
 
-    console.log("displayMonth - " + this.displayMonth);
-
     this.displayDay = this.dayNames[day.getUTCDay()];
 
-
-    let startingDateOfCalendar = this.getStartDateForCalendar(day);
-
-    console.log("startingDateOfCalendar - " + startingDateOfCalendar);
-
-
     let dateToAdd = day;
-
-    for (var i = 0; i < 7; i++) {
+    this.calendar = [];
+    for (var i = 0; i < 5; i++) {
       this.calendar.push(new CalendarDay(new Date(dateToAdd)));
       dateToAdd = new Date(dateToAdd.setDate(dateToAdd.getDate() + 1));
     }
-  }
-
-  private getStartDateForCalendar(selectedDate: Date){
-
-    let lastDayOfPreviousMonth = new Date(selectedDate.setDate(0));
-
-
-    let startingDateOfCalendar: Date = lastDayOfPreviousMonth;
-
-
-    if (startingDateOfCalendar.getDay() != 1) {
-      do {
-        startingDateOfCalendar = new Date(startingDateOfCalendar.setDate(startingDateOfCalendar.getDate() - 1));
-      } while (startingDateOfCalendar.getDay() != 1);
-    }
-
-    return startingDateOfCalendar;
   }
 
    public increaseMonth() {
@@ -123,13 +103,18 @@ export class CalendarComponent implements OnInit {
   public decreaseMonth() {
     this.monthIndex--
     this.generateCalendarDays(this.monthIndex);
-    console.log('monthIndex - ' + this.monthIndex);
+
 
   }
 
   public setCurrentMonth() {
     this.monthIndex = 0;
     this.generateCalendarDays(this.monthIndex);
+  }
+
+
+  public chooseDate(date) {
+    this.onAddEvent.emit(date);
   }
 
 

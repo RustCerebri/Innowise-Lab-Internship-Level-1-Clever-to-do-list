@@ -43,7 +43,6 @@ export class AddNewTaskComponent implements OnInit {
     this.TaskService.create(task).subscribe(() => {
       this.form.reset()
     })
-    console.log(task)
   }
 
 }

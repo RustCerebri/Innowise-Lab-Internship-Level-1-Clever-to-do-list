@@ -12,7 +12,7 @@ import { RouterModule } from "@angular/router";
     RouterModule.forRoot([
       {
         path: '', //пустой путь
-        redirectTo: 'enter',
+        redirectTo: 'task-list',
         pathMatch: 'full',
       },
       {

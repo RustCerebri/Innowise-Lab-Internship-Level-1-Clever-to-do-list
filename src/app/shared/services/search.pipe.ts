@@ -8,6 +8,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class SearchPipe implements PipeTransform {
     transform(tasks: Task[], search = ''): Task[] {
       if (!search.trim()) {
+
         return tasks
       }
 
