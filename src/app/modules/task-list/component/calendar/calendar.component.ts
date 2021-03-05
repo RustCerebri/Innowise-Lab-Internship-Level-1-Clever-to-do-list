@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, Pipe, PipeTransform } from '@angular/core';
-import * as EventEmitter from 'events';
+import { Component, OnInit, Output, Pipe, PipeTransform, EventEmitter } from '@angular/core';
+
 
 
 
@@ -54,7 +54,7 @@ export class ChunkPipe implements PipeTransform {
 export class CalendarComponent implements OnInit {
 
 
-  @Output() public onAddEvent: EventEmitter = new EventEmitter();
+  @Output() public onAddEvent = new EventEmitter();
 
   public calendar: CalendarDay[] = [];
   public monthNames = ["January", "February", "March", "April", "May", "June",
@@ -114,7 +114,9 @@ export class CalendarComponent implements OnInit {
 
 
   public chooseDate(date) {
-    this.onAddEvent.emit(date);
+    this.onAddEvent.next(date);
+    console.log(date);
+
   }
 
 

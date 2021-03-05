@@ -1,6 +1,6 @@
-import { Input, Output } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import * as EventEmitter from 'events';
+
 
 @Component({
   selector: 'app-day',
@@ -10,7 +10,7 @@ import * as EventEmitter from 'events';
 export class DayComponent implements OnInit {
 
   @Input() date: any;
-  @Output() onAdd: EventEmitter = new EventEmitter();
+  @Output() public onAddEvent = new EventEmitter();
   public monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
@@ -22,9 +22,12 @@ export class DayComponent implements OnInit {
   }
 
 
-  chooseDate(date) {
+  public chooseDate() {
 
-    this.onAdd.emit(date);
+    this.onAddEvent.next(this.date);
+    console.log(this.date);
+
+
   }
 
 }

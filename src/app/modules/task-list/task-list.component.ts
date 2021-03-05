@@ -1,9 +1,9 @@
 
 import { Task} from './../../shared/components/interfaces';
 import { TaskService } from './../../shared/components/task-service';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
-
+import {format} from 'date-fns';
 
 
 
@@ -15,10 +15,13 @@ styleUrls: ['./task-list.component.scss'],
 
 export class TaskListComponent implements OnInit, OnDestroy {
 
+
+
   tasks: Task[] = [];
   pTask: Subscription;
   dTask: Subscription;
   searchStr: Date;
+  date: Date;
 
 
    constructor(private TaskService: TaskService) {}
@@ -46,8 +49,15 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   getCurrentDate(date) {
-    this.tasks = this.tasks.filter(item => date==item.date);
-    console.log(date);
+
+
+  console.log(date);
+  console.log(this.tasks);
+
+    this.tasks = this.tasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
+    console.log(format(date.date, "yyyy-MM-dd"));
+    console.log(this.tasks)
+
   }
 
 }
