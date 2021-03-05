@@ -1,4 +1,3 @@
-
 import { Task} from './../../shared/components/interfaces';
 import { TaskService } from './../../shared/components/task-service';
 import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
@@ -14,8 +13,6 @@ styleUrls: ['./task-list.component.scss'],
 })
 
 export class TaskListComponent implements OnInit, OnDestroy {
-
-
 
   tasks: Task[] = [];
   pTask: Subscription;
@@ -49,14 +46,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   getCurrentDate(date) {
-
-
-  console.log(date);
-  console.log(this.tasks);
-
     this.tasks = this.tasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
-    console.log(format(date.date, "yyyy-MM-dd"));
-    console.log(this.tasks)
+    console.log((this.tasks));
+
+
 
   }
 

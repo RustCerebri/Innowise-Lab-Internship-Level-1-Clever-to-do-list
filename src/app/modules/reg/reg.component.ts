@@ -1,5 +1,5 @@
+import { AuthService } from './../../shared/services/auth.service';
 import { User } from './../../shared/components/interfaces';
-import { from } from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -16,7 +16,7 @@ export class RegComponent implements OnInit {
   email: FormControl;
   password: FormControl;
 
-  constructor () {}
+  constructor (private authService: AuthService) {}
 
     ngOnInit () : void {
       this.email = new FormControl('', [Validators.required, Validators.email ]);
@@ -38,6 +38,11 @@ export class RegComponent implements OnInit {
         password: this.form.value.password,
         returnSecureToken: true
       }
+
+      this.authService.signUp(user)
+      // .subscribe(result => console.log)
+      // console.log(this.authService.signUp(user.email, user.password));
+
 
     }
   }
