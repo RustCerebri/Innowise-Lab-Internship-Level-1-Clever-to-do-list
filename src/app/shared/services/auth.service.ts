@@ -55,9 +55,12 @@ export class AuthService {
 
   public signUp (user: User): void{
     this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
-    // .then(() => {
-    //   this.afAuth.currentUser.then(res => res.sendEmailVerification());
-    // })
+    .then((userCredential) => {
+      this.afAuth.currentUser.then(res => res.sendEmailVerification());
+      var user = userCredential.user;
+      console.log(user);
+
+    })
 
   }
 

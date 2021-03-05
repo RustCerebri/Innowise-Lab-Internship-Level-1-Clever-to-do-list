@@ -9,6 +9,7 @@
   var firebaseConfig = {
     apiKey: "AIzaSyDDOlrkE7XcNCkG96Yx3bqkDz_JJmEClOw",
     authDomain: "angular-task-68d08.firebaseapp.com",
+    databaseURL: "https://angular-task-68d08-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "angular-task-68d08",
     storageBucket: "angular-task-68d08.appspot.com",
     messagingSenderId: "472100978769",

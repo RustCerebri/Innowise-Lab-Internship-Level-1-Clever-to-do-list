@@ -25,12 +25,14 @@ import { DayComponent } from './modules/task-list/component/day/day.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 var config = {
-  apiKey: "AIzaSyC_XKJIZMz2TQq_wL2VB-WNQFofSmhT-jY",
-  authDomain: "apptask-8b3d3.firebaseapp.com",
-  databaseURL: "https://apptask-8b3d3-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "apptask-8b3d3",
-  storageBucket: "apptask-8b3d3.appspot.com",
-  messagingSenderId: "774538452111",
+  apiKey: "AIzaSyDDOlrkE7XcNCkG96Yx3bqkDz_JJmEClOw",
+  authDomain: "angular-task-68d08.firebaseapp.com",
+  databaseURL: "https://angular-task-68d08-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "angular-task-68d08",
+  storageBucket: "angular-task-68d08.appspot.com",
+  messagingSenderId: "472100978769",
+  appId: "1:472100978769:web:368a85493300b36fcdf870"
+
 };
 
 const INTERCEPTOR_PROVIDER: Provider = {
