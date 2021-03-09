@@ -49,10 +49,6 @@ export class AuthService {
 
   }
 
-  // public signUp (user: User): Observable<any>{
-  //   return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[${environment.apiKey}]`, user)
-  // }
-
   public signUp (user: User): void{
     this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
     .then((userCredential) => {

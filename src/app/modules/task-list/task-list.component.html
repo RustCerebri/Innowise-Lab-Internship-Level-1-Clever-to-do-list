@@ -11,7 +11,7 @@
 
 </app-calendar>
 
-<div class="wrapper__task" *ngFor="let task of tasks | searchTasks: searchStr; let idx = index">
+<div class="wrapper__task" *ngFor="let task of filteredTasks; let idx = index">
 
   <div class="wrapper__task-complete">
     <input type="checkbox">
@@ -49,4 +49,6 @@
 
 </div>
 <button class="wrapper__button" routerLink="/add-new-task"> Add new Task </button>
+
+
 </div>
