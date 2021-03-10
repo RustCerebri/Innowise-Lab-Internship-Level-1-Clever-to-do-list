@@ -2,10 +2,6 @@
 
 <div class="wrapper">
 
-<div class="wrapper__form-control">
-  <input type="text" placeholder="Find Task" [(ngModel)]="searchStr">
-</div>
-
 
 <app-calendar  (onAddEvent)="getCurrentDate($event)">
 
@@ -49,6 +45,8 @@
 
 </div>
 <button class="wrapper__button" routerLink="/add-new-task"> Add new Task </button>
+
+<button class="wrapper__button" routerLink="/enter" (click)="logout()"> Logout</button>
 
 
 </div>

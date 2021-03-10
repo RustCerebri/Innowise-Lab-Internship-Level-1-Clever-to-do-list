@@ -10,7 +10,7 @@
 
 <div class="calendar" *ngIf="calendar">
 
-  <ul  *ngFor="let row of calendar | chunk: 5; let i = index" >
+  <ul  *ngFor="let row of calendar | chunk: 2; let i = index" >
 
 
     <app-day *ngFor="let date of row" [date]="date" (onAddEvent)="chooseDate(date)"></app-day>

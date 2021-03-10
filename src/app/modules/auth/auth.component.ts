@@ -3,6 +3,7 @@ import { User } from './../../shared/components/interfaces';
 import {Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class AuthComponent implements OnInit {
 
   constructor (
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private fAuth: AngularFireAuth
   ) {}
 
     ngOnInit () : void {
@@ -44,10 +46,14 @@ export class AuthComponent implements OnInit {
         returnSecureToken: true
       }
 
-      this.auth.login(user).subscribe(()=> {
-        this.form.reset()
-        this.router.navigate(['/task-list'])
-      })
+
+        this.auth.login(user).then((res) => {
+          console.log(res.user.b.b.h);
+          this.auth.setToken(res.user.b.b.h)
+          this.form.reset()
+          this.router.navigate(['/task-list'])
+        });
+
 
     }
   }

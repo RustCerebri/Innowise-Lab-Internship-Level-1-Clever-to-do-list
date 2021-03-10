@@ -18,9 +18,13 @@ export class CalendarDay {
 
   constructor(d: Date) {
     this.date = d;
-    this.isPastDate = d.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0);
-    this.isToday = d.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0);
+    this.isPastDate = d.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
+    this.isToday = d.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0);
+    console.log(this.date);
+
   }
+
+
 
 }
 
@@ -65,58 +69,57 @@ export class CalendarComponent implements OnInit {
 
   public displayMonth: string;
   public displayDay: string;
-  private monthIndex: number = 0;
+  private dayIndex: number = 0;
+  private date: Date = new Date;
+  private currentDate: number = 0;
+
 
 
   ngOnInit(): void {
-    this.generateCalendarDays(this.monthIndex);
+    this.currentDate = this.date.getDate();
+    this.generateCalendarDays(this.dayIndex);
+    // console.log(this.monthIndex);
+
 
   }
 
-  private generateCalendarDays(monthIndex: number): void {
-
+  private generateCalendarDays(dayIndex: number): void {
     this.calendar = [];
 
-
-
-    let day: Date = new Date(new Date().setDate(new Date().getDay() + monthIndex));
-
+    let day: Date = new Date(new Date().setDate(new Date().getDate() +dayIndex ));
     this.displayMonth = this.monthNames[day.getMonth()];
-
     this.displayDay = this.dayNames[day.getUTCDay()];
-
     let dateToAdd = day;
     this.calendar = [];
-    for (var i = 0; i < 5; i++) {
+    console.log(this.calendar);
+
+    for (var i = 0; i < 6; i++) {
       this.calendar.push(new CalendarDay(new Date(dateToAdd)));
-      dateToAdd = new Date(dateToAdd.setDate(dateToAdd.getDate() + 1));
+      dateToAdd = new Date(dateToAdd.setDate(dateToAdd.getDate() +1));
     }
   }
 
    public increaseMonth() {
-    this.monthIndex++;
-    this.generateCalendarDays(this.monthIndex);
+      this.dayIndex++;
+      this.generateCalendarDays(this.dayIndex);
+    }
 
 
-  }
+
 
   public decreaseMonth() {
-    this.monthIndex--
-    this.generateCalendarDays(this.monthIndex);
-
-
+    this.dayIndex--
+    this.generateCalendarDays(this.dayIndex);
   }
 
   public setCurrentMonth() {
-    this.monthIndex = 0;
-    this.generateCalendarDays(this.monthIndex);
+    this.dayIndex = 0;
+    this.generateCalendarDays(this.dayIndex);
   }
-
 
   public chooseDate(date) {
     this.onAddEvent.next(date);
     console.log(date);
-
   }
 
 

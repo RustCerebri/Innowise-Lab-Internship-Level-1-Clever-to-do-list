@@ -5,7 +5,6 @@ import {HttpClient} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {  } from  'firebase/app';
 
 
 @Injectable()
@@ -14,35 +13,45 @@ export class AuthService {
   constructor (private http: HttpClient, private afAuth: AngularFireAuth) {}
 
   get token(): string {
-    const expDate = new Date (localStorage.getItem('fb-token-exp'));
-    if (new Date() > expDate) {
-      this.logout();
-      return null
-    }
+    // const expDate = new Date (localStorage.getItem('fb-token-exp'));
+    // if (new Date() > expDate) {
+    //   this.logout();
+    //   return null
+    // }
     return localStorage.getItem('fb-token');
   };
 
-  login (user: User): Observable<any> {
-    user.returnSecureToken = true
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
-      .pipe(
-        tap(this.setToken)
-      )
+  login (user: User): Promise<any> {
+    return this.afAuth.signInWithEmailAndPassword(user.email, user.password);
+    // user.returnSecureToken = true
+    // return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
+    //   .pipe(
+    //     tap(this.setToken)
+    //   )
   };
 
   logout () {
-    this.setToken(null);
+    this.afAuth.signOut().then(() => {
+      console.log('Logout successfull');
+
+      this.setToken(null);
+    })
+
   };
 
   isAuthenticated (): boolean {
     return !!this.token
   };
 
-  private setToken(response: FbAuthResponse | null) {
-    if  (response) {
-      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-      localStorage.setItem('fb-token', response.idToken);
-      localStorage.setItem('fb-token-exp', expDate.toString());
+  public setToken(token: string) {
+    console.log(token);
+
+    if  (token) {
+      console.log(token);
+
+    //   const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
+    localStorage.setItem('fb-token', token);
+    //   localStorage.setItem('fb-token-exp', expDate.toString());
     } else {
       localStorage.clear();
     }

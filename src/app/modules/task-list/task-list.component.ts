@@ -6,6 +6,7 @@ import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/cor
 import { Subscription } from 'rxjs';
 import {format} from 'date-fns';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 
 
@@ -24,12 +25,18 @@ export class TaskListComponent implements OnInit, OnDestroy {
   date: Date;
 
 
-   constructor(private taskService: TaskService, private fireAuth: AngularFireAuth) {}
+   constructor(private taskService: TaskService, private fireAuth: AngularFireAuth, private authService: AuthService, private router: Router) {}
 
   ngOnInit () : void {
     this.fireAuth.user.subscribe(res => {
-      this.taskService.getAll(res.uid).pipe(take(1), tap(res=> console.log(res)
-      )).subscribe(tasks => this.allTasks = tasks);
+      if (res) {
+        this.taskService.getAll(res.uid)
+          .pipe(
+            take(1),
+            tap(res=> console.log(res)
+          ))
+          .subscribe(tasks => this.allTasks = tasks);
+      }
     });
 
   }
@@ -47,6 +54,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   getCurrentDate(date) {
     this.filteredTasks = this.allTasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/enter']);
   }
 
 }
