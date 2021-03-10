@@ -1,8 +1,13 @@
+import { AuthService } from './../../shared/services/auth.service';
+import { take, tap } from 'rxjs/operators';
 import { Task} from './../../shared/components/interfaces';
 import { TaskService } from './../../shared/components/task-service';
 import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {format} from 'date-fns';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+
 
 
 
@@ -14,43 +19,46 @@ styleUrls: ['./task-list.component.scss'],
 
 export class TaskListComponent implements OnInit, OnDestroy {
 
-  tasks: Task[] = [];
-  pTask: Subscription;
-  dTask: Subscription;
+  private allTasks: Task[] = [];
+  public filteredTasks: Task[] = [];
   searchStr: Date;
   date: Date;
 
 
-   constructor(private TaskService: TaskService) {}
+   constructor(private taskService: TaskService, private fireAuth: AngularFireAuth, private authService: AuthService, private router: Router) {}
 
   ngOnInit () : void {
-      this. pTask = this.TaskService.getAll().subscribe(tasks => {
-        this.tasks = tasks;
-      })
+    this.fireAuth.user.subscribe(res => {
+      if (res) {
+        this.taskService.getAll(res.uid)
+          .pipe(
+            take(1),
+            tap(res=> console.log(res)
+          ))
+          .subscribe(tasks => this.allTasks = tasks);
+      }
+    });
+
   }
 
 
   remove (id: string) {
-    this.dTask = this.TaskService.remove(id).subscribe(()=>{
-      this.tasks = this.tasks.filter(post => post.id !== id)
+    this.taskService.remove(id).pipe(take(1)).subscribe(()=>{
+      this.allTasks = this.allTasks.filter(post => post.id !== id)
     })
   }
 
   ngOnDestroy() : void {
-    if (this.pTask) {
-      this.pTask.unsubscribe()
-    }
-    if (this.dTask) {
-      this.dTask.unsubscribe()
-    }
+
   }
 
   getCurrentDate(date) {
-    this.tasks = this.tasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
-    console.log((this.tasks));
+    this.filteredTasks = this.allTasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
+  }
 
-
-
+  public logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/enter']);
   }
 
 }

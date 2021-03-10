@@ -16,7 +16,9 @@ export interface Task {
   title: string,
   description: string,
   date: string,
-  time: Time
+  time: Time,
+  autorId: string
+
 }
 
 export interface FbCreateResponse {
