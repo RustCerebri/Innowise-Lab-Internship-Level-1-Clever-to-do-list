@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import {FbCreateResponse, Task } from './interfaces';
 import {map} from 'rxjs/operators';
 
+
+
 @Injectable ({providedIn: 'root'})
 
 export class TaskService {
@@ -32,8 +34,21 @@ export class TaskService {
     }))
   }
 
-  remove(id: string) {
+    getById(id: string): Observable<Task> {
+      return this.http.get<Task>(`${environment.fbDbUrl}/tasks/${id}.json`)
+      .pipe(map((task: Task) => {
+        return {
+          ...task, id
+        }
+      }))
+    }
 
+  remove(id: string): Observable<void> {
+    return this.http.delete<void>(`${environment.fbDbUrl}/tasks/${id}.json`);
+  }
+
+  update(task: Task): Observable<Task>  {
+    return this.http.patch<Task>(`${environment.fbDbUrl}/tasks/${task.id}.json`, task);
   }
 
 }

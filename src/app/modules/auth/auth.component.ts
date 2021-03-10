@@ -32,11 +32,12 @@ export class AuthComponent implements OnInit {
     }
 
     submit() {
-      console.log(this.form.value)
+
       if(this.form.invalid) {
 
         return
       }
+
       const user: User = {
         email: this.form.value.email,
         password: this.form.value.password,

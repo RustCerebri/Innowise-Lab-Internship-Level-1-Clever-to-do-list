@@ -15,10 +15,21 @@ export interface Task {
   id?: string,
   title: string,
   description: string,
-  date: Date,
+  date: string,
   time: Time
 }
 
 export interface FbCreateResponse {
   name: string
+}
+
+export interface Params {
+  id: string;
+}
+
+export interface CalDate {
+  currentDate: Date,
+  month: Date,
+  day: string,
+  week: string
 }

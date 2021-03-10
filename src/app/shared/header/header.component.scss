@@ -1,9 +1,11 @@
 .wrapper {
-  height: 50px;
+  height: 80px;
   width: 100%;
   background-color: slateblue;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: start;
 
 
       &__circle{

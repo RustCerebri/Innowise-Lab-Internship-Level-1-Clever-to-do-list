@@ -1,58 +1,52 @@
 <app-header></app-header>
 
-<div class="form-control">
+<div class="wrapper">
+
+<div class="wrapper__form-control">
   <input type="text" placeholder="Find Task" [(ngModel)]="searchStr">
 </div>
 
 
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Title Task</th>
-      <th>Description</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+<app-calendar  (onAddEvent)="getCurrentDate($event)">
 
-  <tbody>
-    <tr *ngFor="let task of tasks | searchTasks: searchStr; let idx = index">
-      <td>{{idx + 1 }}</td>
-      <td>{{task.title}}</td>
-      <td>{{task.description}}</td>
-      <td>{{task.date}}</td>
-      <td>{{task.time}}</td>
-      <td>
-        <button [routerLink]="['/change-task', task.id]"  >
-          Edit
-        </button>
+</app-calendar>
 
-        <button (click)="remove(task.id)">
-           Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
+<div class="wrapper__task" *ngFor="let task of tasks | searchTasks: searchStr; let idx = index">
 
-</table>
+  <div class="wrapper__task-complete">
+    <input type="checkbox">
+  </div>
 
+  <div class="wrapper__task-number">
+    {{idx +1}}
+  </div>
 
+  <div class="wrapper__task-item">
 
+    <div class="wrapper__task-item-date">
+      {{task.date}}
+    </div>
 
-<!-- <div class="wrapper">
+    <div class="wrapper__task-item-title">
+      {{task.title}}
+    </div>
 
-<app-scroll-bar></app-scroll-bar>
+    <div class="wrapper__task-item-description">
+      {{task.description}}
+    </div>
 
-<app-scroll-bar></app-scroll-bar>
+    <div class="wrapper__task-item-time">
+      {{task.time}}
+    </div>
 
-<app-current-task ></app-current-task>
+  </div>
 
-<app-current-task></app-current-task>
+  <div class="wrapper__task-control">
+    <button class="wrapper__button" [routerLink]="['/change-task', task.id]">edit</button>
+    <button class="wrapper__button" (click)="remove(task.id)">delete</button>
 
-<app-current-task ></app-current-task>
+  </div>
 
-<app-button routerLink="/add-new-task"></app-button>
-
-</div> -->
+</div>
+<button class="wrapper__button" routerLink="/add-new-task"> Add new Task </button>
+</div>
