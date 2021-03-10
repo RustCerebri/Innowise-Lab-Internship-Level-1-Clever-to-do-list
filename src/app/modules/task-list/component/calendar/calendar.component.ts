@@ -79,7 +79,7 @@ export class CalendarComponent implements OnInit {
 
 
 
-    let day: Date = new Date(new Date().setDate(new Date().getDay() + monthIndex));
+    let day: Date = new Date(new Date().setDate(new Date().getDate() + monthIndex));
 
     this.displayMonth = this.monthNames[day.getMonth()];
 
