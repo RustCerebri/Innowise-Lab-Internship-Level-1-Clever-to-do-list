@@ -1,15 +1,11 @@
 import { AuthService } from './../../shared/services/auth.service';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { Task} from './../../shared/components/interfaces';
 import { TaskService } from './../../shared/components/task-service';
-import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {format} from 'date-fns';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-
-
-
 
 @Component({
 selector: 'app-task-list',
@@ -19,13 +15,15 @@ styleUrls: ['./task-list.component.scss'],
 
 export class TaskListComponent implements OnInit, OnDestroy {
 
-  private allTasks: Task[] = [];
   public filteredTasks: Task[] = [];
-  searchStr: Date;
-  date: Date;
+  public searchStr: Date;
+  public date: Date;
+
+  private allTasks: Task[] = [];
 
 
-   constructor(private taskService: TaskService, private fireAuth: AngularFireAuth, private authService: AuthService, private router: Router) {}
+
+  constructor(private taskService: TaskService, private fireAuth: AngularFireAuth, private authService: AuthService, private router: Router) {}
 
   ngOnInit () : void {
     this.fireAuth.user.subscribe(res => {
@@ -33,16 +31,19 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.taskService.getAll(res.uid)
           .pipe(
             take(1),
-            tap(res=> console.log(res)
-          ))
-          .subscribe(tasks => this.allTasks = tasks);
+           )
+          .subscribe(tasks => {
+            this.allTasks = tasks;
+            const currentDate: Date = new Date();
+            this.getCurrentDate(currentDate);
+          });
       }
     });
 
   }
 
 
-  remove (id: string) {
+  public remove (id: string): void {
     this.taskService.remove(id).pipe(take(1)).subscribe(()=>{
       this.allTasks = this.allTasks.filter(post => post.id !== id)
     })
@@ -52,8 +53,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   }
 
-  getCurrentDate(date) {
-    this.filteredTasks = this.allTasks.filter(item => format(date.date, "yyyy-MM-dd")===item.date);
+  public getCurrentDate(date): void {
+    this.filteredTasks = this.allTasks.filter(item => format(date, "yyyy-MM-dd")===item.date);
+
   }
 
   public logout(): void {

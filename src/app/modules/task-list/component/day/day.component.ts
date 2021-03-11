@@ -11,10 +11,10 @@ export class DayComponent implements OnInit {
 
   @Input() date: any;
   @Output() public onAddEvent = new EventEmitter();
-  public monthNames = ["January", "February", "March", "April", "May", "June",
+  public monthNames: Array<string> = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  public dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  public dayNames: Array<string> = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   constructor() { }
 
@@ -22,12 +22,8 @@ export class DayComponent implements OnInit {
   }
 
 
-  public chooseDate() {
-
-    this.onAddEvent.next(this.date);
-    console.log(this.date);
-
-
+  public chooseDate(): void {
+    this.onAddEvent.next(this.date.date);
   }
 
 }

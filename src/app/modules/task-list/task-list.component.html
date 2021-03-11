@@ -3,50 +3,46 @@
 <div class="wrapper">
 
 
-<app-calendar  (onAddEvent)="getCurrentDate($event)">
+  <app-calendar (onAddEvent)="getCurrentDate($event)">
 
-</app-calendar>
+  </app-calendar>
 
-<div class="wrapper__task" *ngFor="let task of filteredTasks; let idx = index">
+  <div class="wrapper__task" *ngFor="let task of filteredTasks; let idx = index">
 
-  <div class="wrapper__task-complete">
-    <input type="checkbox">
-  </div>
-
-  <div class="wrapper__task-number">
-    {{idx +1}}
-  </div>
-
-  <div class="wrapper__task-item">
-
-    <div class="wrapper__task-item-date">
-      {{task.date}}
+    <div class="wrapper__task-number">
+      {{idx +1}}
     </div>
 
-    <div class="wrapper__task-item-title">
-      {{task.title}}
+    <div class="wrapper__task-item">
+
+      <div class="wrapper__task-item-date">
+        {{task.date}}
+      </div>
+
+      <div class="wrapper__task-item-title">
+        {{task.title}}
+      </div>
+
+      <div class="wrapper__task-item-description">
+        {{task.description}}
+      </div>
+
+      <div class="wrapper__task-item-time">
+        {{task.time}}
+      </div>
+
     </div>
 
-    <div class="wrapper__task-item-description">
-      {{task.description}}
-    </div>
+    <div class="wrapper__task-control">
+      <button class="wrapper__button" [routerLink]="['/change-task', task.id]">edit</button>
+      <button class="wrapper__button" (click)="remove(task.id)">delete</button>
 
-    <div class="wrapper__task-item-time">
-      {{task.time}}
     </div>
 
   </div>
+  <button class="wrapper__button" routerLink="/add-new-task"> Add new Task </button>
 
-  <div class="wrapper__task-control">
-    <button class="wrapper__button" [routerLink]="['/change-task', task.id]">edit</button>
-    <button class="wrapper__button" (click)="remove(task.id)">delete</button>
-
-  </div>
-
-</div>
-<button class="wrapper__button" routerLink="/add-new-task"> Add new Task </button>
-
-<button class="wrapper__button" routerLink="/enter" (click)="logout()"> Logout</button>
+  <button class="wrapper__button" routerLink="/enter" (click)="logout()"> Logout</button>
 
 
 </div>

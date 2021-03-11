@@ -1,11 +1,6 @@
 import { Component, OnInit, Output, Pipe, PipeTransform, EventEmitter } from '@angular/core';
 
-
-
-
 export class CalendarDay {
-
-
   public date: Date;
   public title: string;
   public isPastDate: boolean;
@@ -20,12 +15,7 @@ export class CalendarDay {
     this.date = d;
     this.isPastDate = d.setHours(0, 0, 0, 0) > new Date().setHours(0, 0, 0, 0);
     this.isToday = d.setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0);
-    console.log(this.date);
-
   }
-
-
-
 }
 
 @Pipe({
@@ -78,49 +68,41 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.currentDate = this.date.getDate();
     this.generateCalendarDays(this.dayIndex);
-    // console.log(this.monthIndex);
+   }
 
-
+   public increaseDay(): void {
+    this.dayIndex++;
+    this.generateCalendarDays(this.dayIndex);
   }
 
-  private generateCalendarDays(dayIndex: number): void {
-    this.calendar = [];
+
+  public decreaseDay(): void {
+    this.dayIndex--
+    this.generateCalendarDays(this.dayIndex);
+  }
+
+  public getCurrentDay(): void {
+    this.dayIndex = 0;
+    this.generateCalendarDays(this.dayIndex);
+  }
+
+  public chooseDate(date): void {
+    this.onAddEvent.next(date);
+  }
+
+    private generateCalendarDays(dayIndex: number): void {
+      this.calendar = [];
 
     let day: Date = new Date(new Date().setDate(new Date().getDate() +dayIndex ));
     this.displayMonth = this.monthNames[day.getMonth()];
     this.displayDay = this.dayNames[day.getUTCDay()];
     let dateToAdd = day;
     this.calendar = [];
-    console.log(this.calendar);
 
     for (var i = 0; i < 6; i++) {
       this.calendar.push(new CalendarDay(new Date(dateToAdd)));
       dateToAdd = new Date(dateToAdd.setDate(dateToAdd.getDate() +1));
     }
   }
-
-   public increaseMonth() {
-      this.dayIndex++;
-      this.generateCalendarDays(this.dayIndex);
-    }
-
-
-
-
-  public decreaseMonth() {
-    this.dayIndex--
-    this.generateCalendarDays(this.dayIndex);
-  }
-
-  public setCurrentMonth() {
-    this.dayIndex = 0;
-    this.generateCalendarDays(this.dayIndex);
-  }
-
-  public chooseDate(date) {
-    this.onAddEvent.next(date);
-    console.log(date);
-  }
-
 
 }

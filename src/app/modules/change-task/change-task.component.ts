@@ -16,17 +16,25 @@ import { Subscription } from 'rxjs';
 
 export class ChangeTaskComponent implements OnInit, OnDestroy {
 
-    form: FormGroup;
-    task: Task;
-    submitted = false;
+    public form: FormGroup;
+    public task: Task;
+    public submitted = false;
 
-    uSub: Subscription;
+    public uSub: Subscription;
+
+    public title: FormControl;
+    public description: FormControl;
+    public time: FormControl;
+    public date: FormControl;
 
   constructor (
     private route: ActivatedRoute,
     private TaskService: TaskService) {}
 
   ngOnInit () : void {
+    this.initFormFields();
+    this.form = this.createForm();
+
     this.route.params
       .pipe(
         switchMap((params: Params) => {
@@ -34,12 +42,7 @@ export class ChangeTaskComponent implements OnInit, OnDestroy {
         })
     ).subscribe((task: Task)=> {
       this.task = task;
-      this.form = new FormGroup ( {
-        title: new FormControl(task.title, Validators.required),
-        description: new FormControl(task.description, Validators.required),
-        date: new FormControl(task.date, Validators.required),
-        time: new FormControl(task.time, Validators.required)
-      })
+      this.fillFormControls(task);
     })
   }
 
@@ -49,7 +52,7 @@ export class ChangeTaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  submit() {
+  public submit(): void {
     if(this.form.invalid) {
       return
     }
@@ -66,6 +69,31 @@ export class ChangeTaskComponent implements OnInit, OnDestroy {
     }).subscribe(()=> {
       this.submitted = false;
     })
+  }
+
+  private initFormFields(): void {
+    this.title = new FormControl('', Validators.required);
+    this.description = new FormControl('', Validators.required);
+    this.date = new FormControl('', Validators.required);
+    this.time = new FormControl('', Validators.required);
+  }
+
+  private createForm(): FormGroup {
+    const form = new FormGroup({
+      title: this.title,
+      description: this.description,
+      date: this.date,
+      time: this.time
+    });
+
+    return form;
+  }
+
+  private fillFormControls(task: Task): void {
+    this.title.setValue(task.title);
+    this.description.setValue(task.description);
+    this.time.setValue(task.time);
+    this.date.setValue(task.date);
   }
 
 }

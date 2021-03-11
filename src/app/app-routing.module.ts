@@ -11,7 +11,7 @@ import { RouterModule } from "@angular/router";
   imports: [
     RouterModule.forRoot([
       {
-        path: '', //пустой путь
+        path: '',
         redirectTo: 'enter',
         pathMatch: 'full',
       },
