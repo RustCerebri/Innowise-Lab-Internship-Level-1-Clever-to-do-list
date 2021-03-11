@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FbCreateResponse, Task } from './interfaces';
-import { filter, map, tap } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 
 
@@ -13,7 +13,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  create(task: Task): Observable<Task> {
+  public create(task: Task): Observable<Task> {
     return this.http.post(`${environment.fbDbUrl}/tasks.json`, task)
       .pipe(map((response: FbCreateResponse) => {
         return {
@@ -23,7 +23,7 @@ export class TaskService {
       }))
   }
 
-  getAll(uid): Observable<Task[]> {
+  public getAll(uid): Observable<Task[]> {
     return this.http.get(`${environment.fbDbUrl}/tasks.json`)
       .pipe(
         map((response: { [key: string]: any }) => {
@@ -37,7 +37,7 @@ export class TaskService {
       map(data => data.filter(res => res.autorId === uid)))
   }
 
-  getById(id: string): Observable<Task> {
+  public getById(id: string): Observable<Task> {
     return this.http.get<Task>(`${environment.fbDbUrl}/tasks/${id}.json`)
       .pipe(map((task: Task) => {
         return {
@@ -46,11 +46,11 @@ export class TaskService {
       }))
   }
 
-  remove(id: string): Observable<void> {
+  public remove(id: string): Observable<void> {
     return this.http.delete<void>(`${environment.fbDbUrl}/tasks/${id}.json`);
   }
 
-  update(task: Task): Observable<Task> {
+  public update(task: Task): Observable<Task> {
     return this.http.patch<Task>(`${environment.fbDbUrl}/tasks/${task.id}.json`, task);
   }
 

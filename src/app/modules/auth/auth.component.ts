@@ -14,9 +14,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 export class AuthComponent implements OnInit {
 
-  form: FormGroup;
-  email: FormControl;
-  password: FormControl;
+  public form: FormGroup;
+  public email: FormControl;
+  public password: FormControl;
 
   constructor (
     private auth: AuthService,
@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
       })
     }
 
-    submit() {
+    public submit(): void {
 
       if(this.form.invalid) {
 
@@ -48,7 +48,6 @@ export class AuthComponent implements OnInit {
 
 
         this.auth.login(user).then((res) => {
-          console.log(res.user.b.b.h);
           this.auth.setToken(res.user.b.b.h)
           this.form.reset()
           this.router.navigate(['/task-list'])

@@ -1,9 +1,9 @@
 import { TaskService } from './../../shared/components/task-service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Task, User } from './../../shared/components/interfaces';
+import { Task } from './../../shared/components/interfaces';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { resourceUsage } from 'process';
+
 
 @Component({
   selector: 'app-add-new-task',
@@ -14,14 +14,13 @@ import { resourceUsage } from 'process';
 
 export class AddNewTaskComponent implements OnInit {
 
-  form: FormGroup;
-  title: FormControl;
-  description: FormControl;
-  date: FormControl;
-  time: FormControl;
+  public form: FormGroup;
+  public title: FormControl;
+  public description: FormControl;
+  public date: FormControl;
+  public time: FormControl;
 
   public userID: string;
-
 
 
   constructor(private taskService: TaskService, private fireAuth: AngularFireAuth) { }
@@ -42,8 +41,7 @@ export class AddNewTaskComponent implements OnInit {
   }
 
 
-  submit() {
-
+  public submit() {
 
     if (this.form.invalid) {
       return
@@ -55,9 +53,6 @@ export class AddNewTaskComponent implements OnInit {
       time: this.form.value.time,
       autorId: this.userID
     }
-
-    console.log(task);
-
 
     this.taskService.create(task).subscribe(() => {
       this.form.reset()

@@ -4,14 +4,14 @@
 
   <h2>Edit task</h2>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form">
 
     <div class="wrapper__control" [ngClass]="{invalid: form.get('title').touched &&form.get('title').invalid}">
 
 
       <label for="title"></label>
 
-      <input class="wrapper__forms-input" placeholder="Name" type="text" name="" formControlName="title">
+      <input class="wrapper__forms-input" placeholder="Name" type="text" formControlName="title">
 
       <div *ngIf="form.get('title').touched && form.get('title').invalid" class="wrapper__forms-control-validation">
 
@@ -79,7 +79,7 @@
 
   </form>
 
-  <button class="wrapper__button" type="submit">Update</button>
+  <button class="wrapper__button" (click)="submit()" >Update</button>
 
   <button class="wrapper__button" routerLink="/task-list"> Back </button>
 </div>

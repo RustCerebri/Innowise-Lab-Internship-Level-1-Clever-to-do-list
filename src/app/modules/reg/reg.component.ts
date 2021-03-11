@@ -2,7 +2,8 @@ import { AuthService } from './../../shared/services/auth.service';
 import { User } from './../../shared/components/interfaces';
 import {Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-reg',
@@ -12,11 +13,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class RegComponent implements OnInit {
 
-  form: FormGroup;
-  email: FormControl;
-  password: FormControl;
+  public form: FormGroup;
+  public email: FormControl;
+  public password: FormControl;
 
-  constructor (private authService: AuthService) {}
+  constructor (
+    private authService: AuthService,
+    private router: Router,
+    private fAuth: AngularFireAuth
+    ) {}
 
     ngOnInit () : void {
       this.email = new FormControl('', [Validators.required, Validators.email ]);
@@ -27,7 +32,7 @@ export class RegComponent implements OnInit {
       })
     }
 
-    submit() {
+    public submit(): void {
 
       if(this.form.invalid) {
         return
@@ -39,10 +44,6 @@ export class RegComponent implements OnInit {
         returnSecureToken: true
       }
 
-      this.authService.signUp(user)
-      // .subscribe(result => console.log)
-      // console.log(this.authService.signUp(user.email, user.password));
-
-
+      this.authService.signUp(user);
     }
   }
